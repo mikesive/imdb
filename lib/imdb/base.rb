@@ -139,7 +139,7 @@ module Imdb
         end
       end
     end
-    
+
     # Returns an int containing the Metascore
     def metascore
       criticreviews_document.at('//span[@itemprop="ratingValue"]').content.to_i rescue nil

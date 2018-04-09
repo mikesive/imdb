@@ -27,7 +27,7 @@ module Imdb
     end
 
     def self.query(query)
-      open("https://akas.imdb.com/find?q=#{CGI.escape(query)};s=tt")
+      open("https://akas.imdb.com/find?q=#{CGI.escape(query)};s=tt", ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE)
     end
 
     def parse_movie
