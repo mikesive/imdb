@@ -13,7 +13,7 @@ module Imdb
     #
     def initialize(imdb_id, title = nil)
       @id = imdb_id
-      @url = "http://akas.imdb.com/title/tt#{imdb_id}/combined"
+      @url = "https://akas.imdb.com/title/tt#{imdb_id}/combined"
       @title = title.gsub(/"/, '').strip if title
     end
 
@@ -58,7 +58,7 @@ module Imdb
 
     # Returns the url to the "Watch a trailer" page
     def trailer_url
-      'http://imdb.com' + document.at("a[@href*='/video/screenplay/']")['href'] rescue nil
+      'https://imdb.com' + document.at("a[@href*='/video/screenplay/']")['href'] rescue nil
     end
 
     # Returns an array of genres (as strings)
@@ -212,7 +212,7 @@ module Imdb
     def fullcredits_document
       @fullcredits_document ||= Nokogiri::HTML(Imdb::Movie.find_by_id(@id, 'fullcredits'))
     end
-    
+
     def criticreviews_document
       @criticreviews_document ||= Nokogiri::HTML(Imdb::Movie.find_by_id(@id, 'criticreviews'))
     end
@@ -220,10 +220,10 @@ module Imdb
     def userreviews_document(start=0)
       Nokogiri::HTML(Imdb::Movie.find_by_id(@id, "reviews?start=#{start}"))
     end
-    
+
     # Use HTTParty to fetch the raw HTML for this movie.
     def self.find_by_id(imdb_id, page = :combined)
-      open("http://akas.imdb.com/title/tt#{imdb_id}/#{page}")
+      open("https://akas.imdb.com/title/tt#{imdb_id}/#{page}")
     end
 
     # Convenience method for search
